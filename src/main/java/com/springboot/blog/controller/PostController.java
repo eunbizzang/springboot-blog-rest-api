@@ -1,6 +1,7 @@
 package com.springboot.blog.controller;
 
 import com.springboot.blog.payload.PostDto;
+import com.springboot.blog.payload.PostDtoV2;
 import com.springboot.blog.payload.PostResponse;
 import com.springboot.blog.service.PostService;
 import com.springboot.blog.utils.AppConstants;
@@ -13,7 +14,7 @@ import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/api/v1/posts")
 public class PostController {
 
     private PostService postService;
@@ -40,9 +41,18 @@ public class PostController {
         return postService.getAllPosts(pageNo, pageSize, sortBy, sortDir);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDto> getPostByIdV1(@PathVariable(name = "id") long id){
+//        PostDto postDto = postService.getPostById(id);
+//        PostDtoV2 postDtoV2 = new PostDtoV2();
+//        postDtoV2.setId(postDto.getId());
+//        postDtoV2.setId(postDto.getId());
+
+        return ResponseEntity.ok(postService.getPostById(id));
+    }
     // get post by id
     @GetMapping("/{id}")
-    public ResponseEntity<PostDto> getPostById(@PathVariable(name = "id") long id){
+    public ResponseEntity<PostDto> getPostByIdV2(@PathVariable(name = "id") long id){
         return ResponseEntity.ok(postService.getPostById(id));
     }
 
